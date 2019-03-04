@@ -10,6 +10,8 @@ namespace FirstConsole
     {
         static void Main(string[] args)
         {
+            new DataStructures().Array();
+
             //single row comment
 
             /*

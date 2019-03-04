@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStructures.cs" />
     <Compile Include="FirstNamespace\Class1.cs" />
     <Compile Include="Iterations.cs" />
     <Compile Include="Program.cs" />
