@@ -55,6 +55,7 @@ namespace Triangle
         /// <returns>L'intero convertito a partire dalla stringa inserita dall'utente</returns>
         static int AskAndCheckNumber(string message)
         {
+            System.Diagnostics.Debug.WriteLine(string.Concat("Message: ", message));
             Console.WriteLine(message);
             string input = Console.ReadLine();
             bool conversionOk = int.TryParse(input, out int convertedValue);
@@ -63,6 +64,9 @@ namespace Triangle
 
             if (convertedValue <= 0)
                 Console.WriteLine("il valore deve essere positivo");
+
+            //System.Diagnostics.Debug.WriteLine(string.Format("{0}: {1}", message, input));
+            System.Diagnostics.Debug.WriteLine($"{ message }: { input }");
 
             return convertedValue;
         }
