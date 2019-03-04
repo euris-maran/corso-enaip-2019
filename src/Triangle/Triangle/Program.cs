@@ -10,10 +10,18 @@ namespace Triangle
     {
         static void Main(string[] args)
         {
-            int a = AskAndCheckNumber("inserisci primo lato");
-            int b = AskAndCheckNumber("inserisci secondo lato");
-            int c = AskAndCheckNumber("inserisci terzo lato");
-                        
+            int[] lati = new int[3];
+
+            for (int lato = 0; lato < lati.Length; lato++)
+            {
+                lati[lato] = AskAndCheckNumber("inserisci lato " + (lato + 1));
+            }
+
+            #region old code
+            //int a = lati[0];
+            //int b = lati[1];
+            //int c = lati[2];
+
             //Console.WriteLine("inserisci primo lato");
             //string input = Console.ReadLine();
             //bool conversionOk = int.TryParse(input, out a);
@@ -32,21 +40,55 @@ namespace Triangle
             //if (!conversionOk)
             //    Console.WriteLine("l'input non è valido");
 
-            bool sumOk = a + b > c && b + c > a && c + a > b;
-            bool diffOk = a < Math.Abs(b - c) && b < Math.Abs(a - c) && c < Math.Abs(a - b);
-            if (sumOk && diffOk)
+            //bool sumOk = a + b > c && b + c > a && c + a > b;
+            //bool diffOk = a < Math.Abs(b - c) && b < Math.Abs(a - c) && c < Math.Abs(a - b);
+            //if (sumOk && diffOk)
+            //{
+            //    Console.WriteLine("è un triangolo");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("non è un triangolo");
+            //}
+            #endregion
+
+            if (IsTriangle(lati[0], lati[1], lati[2]))
             {
                 Console.WriteLine("è un triangolo");
             }
             else
             {
                 Console.WriteLine("non è un triangolo");
+
+                do {
+                    int m = Math.Max(Math.Max(lati[0], lati[1]), lati[2]);
+
+                    int index = Array.IndexOf(lati, m);
+
+                    lati[index] = lati[index] - 1;
+                }
+                while (!IsTriangle(lati[0], lati[1], lati[2]));
+
+                Console.WriteLine($"Questi valori invece costituiscono un triangolo {lati[0]}, {lati[1]}, {lati[2]}");
             }
             
             Console.ReadLine();
             
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns>True se i lati a, b, c possono costituire un tiangolo, False altrimenti.</returns>
+        static bool IsTriangle(int a, int b, int c)
+        {
+            bool sumOk = a + b > c && b + c > a && c + a > b;
+            bool diffOk = a > Math.Abs(b - c) && b > Math.Abs(a - c) && c > Math.Abs(a - b);
 
+            return sumOk && diffOk;
+        }
         /// <summary>
         /// Mostra all'utente il messaggio e prova
         /// convertire il valore inserito in input in un intero
