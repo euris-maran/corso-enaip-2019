@@ -42,7 +42,11 @@ namespace Brackets
         /// <returns></returns>
         static bool CheckBrackets(string text)
         {
+            char[] chars = text.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
 
+            }
         }
     }
 }
