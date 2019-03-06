@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -92,7 +91,8 @@ namespace Brackets
                     }
                 }
 
-                if (currentChar == '\n')
+                const char NEWLINE_CHAR = '\n';                
+                if (currentChar == NEWLINE_CHAR)
                 {
                     currentRow++;
                     currentColumn = 1;
@@ -126,10 +126,10 @@ namespace Brackets
 
         #region Alternativa
 
-        static Dictionary<char, char> _brackets = new Dictionary<char, char> {
-            { '(', ')' },
-            { '[', ']' },
-            { '{', '}' }
+        static Dictionary<char, char> _bracketsType = new Dictionary<char, char> {
+            { ')', '(' },
+            { ']', '[' },
+            { '}', '{' }
         };
 
         /// <summary>
@@ -140,38 +140,37 @@ namespace Brackets
         /// <returns></returns>
         static bool CheckBrackets2(string text)
         {
+            //inizializzazione dictionary
+            //_brackets.Add('{', '}');
+            //_brackets.Add('[', ']');
+            //_brackets.Add('(', ')');
+
             Stack<char> brackets = new Stack<char>();
 
             for (int i = 0; i < text.Length; i++)
             {
                 char currentChar = text[i];
-                if (_brackets.ContainsKey(currentChar))
+                if (_bracketsType.ContainsValue(currentChar))
                 {
                     brackets.Push(currentChar);
                 }
-                else if (_brackets.ContainsValue(currentChar))
+                else if (_bracketsType.ContainsKey(currentChar))
                 {
                     if (brackets.Count == 0)
                         return false;
 
-                    if (brackets.Peek() == MatchingBracket(currentChar))
+                    if (brackets.Peek() == _bracketsType[currentChar]) //MatchingBracket(currentChar))
                         brackets.Pop();
                 }
             }
-
+            
             return brackets.Count == 0;
         }
 
-        private static char MatchingBracket(char currentChar)
-        {
-            foreach (var item in _brackets)
-            {
-                if (item.Value == currentChar)
-                    return item.Key;
-            }
-
-            return ' ';
-        }
+        //private static char MatchingBracket(char currentChar)
+        //{
+        //    return _brackets[currentChar];
+        //}
 
         #endregion
     }
