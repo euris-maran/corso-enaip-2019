@@ -4,31 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstConsole
+namespace CSharp
 {
     class Program
     {
-        static void ChangeValueTypeByRef(ref int intero)
-        {
-            Console.WriteLine(intero);
-            intero = 10;
-            Console.WriteLine(intero);
-        }
-
-        static void ChangeValueType(int intero)
-        {
-            Console.WriteLine(intero);
-            intero = 10;
-            Console.WriteLine(intero);
-        }
 
         static void Main(string[] args)
         {
-            int i = 1;
-            Console.WriteLine(i);
-            ChangeValueTypeByRef(ref i);
-            Console.WriteLine(i);
-
+            new ValueAndReference().Test();
             new Iterations().Iterate();
             new DataStructures().Array();
 
@@ -37,7 +20,7 @@ namespace FirstConsole
             /*
              * Multirow comment
              */
-             /*
+             
             int i;
             short s;
             uint ui;
@@ -75,7 +58,7 @@ namespace FirstConsole
             str = string.Concat(str, " Mario");
 
             Console.WriteLine(str);
-            */
+            
             Console.ReadLine();
         }
     }

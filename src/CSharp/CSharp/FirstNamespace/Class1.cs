@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstConsole
+namespace CSharp.FirstNamespace
 {
-    class ValueAndReference
+    class Class1
     {
-        public void ChangeValueType(int i)
-        {
-            i = 10;
-        }
     }
 }
