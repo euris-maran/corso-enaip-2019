@@ -8,11 +8,19 @@ namespace FirstConsole
 {
     class Iterations
     {
-        void Iterate()
+        public void Iterate()
         {
             int i = 0;
-            for (i = 0; i < 3; i++)
+            for (i = 0; i < 20; i++)
             {
+                Console.WriteLine("Sono nell'iterazione " + (i + 1));
+                if (i == 5)
+                    continue;
+
+                if (i == 7)
+                    break;
+
+                Console.WriteLine(i);
                 System.Diagnostics.Debug.WriteLine(i);
             }
 
@@ -25,6 +33,8 @@ namespace FirstConsole
             while (i < 3)
             {
                 System.Diagnostics.Debug.WriteLine(i);
+                if (i == 2)
+                    break;
                 i++;
             }
 

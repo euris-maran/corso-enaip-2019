@@ -26,9 +26,11 @@ namespace Brackets
 
                         }
                     }
-                }");
+                }",
+                out int errorRow,
+                out int errorColumn);
 
-            string strOk = ok ? "OK" : "KO";
+            string strOk = ok ? "OK" : $"KO: row {errorRow}, column {errorColumn}";
             Console.WriteLine($"Text is { strOk }");
 
             Console.ReadLine();
@@ -36,7 +38,7 @@ namespace Brackets
 
         static List<char> openingBrackets = new List<char>() { '(', '[', '{' };
         static List<char> closingBrackets = new List<char>() { ')', ']', '}' };
-        static bool CheckBrackets(string text)                 
+        static bool CheckBrackets(string text, out int errorRow, out int errorColumn)
         {
             //Spostato in inizializzatore
             //openingBrackets.Add('(');
@@ -49,6 +51,9 @@ namespace Brackets
             //closingBrackets.Add('}');
 
             Stack<char> brackets = new Stack<char>();
+            int currentRow = 1;
+            int currentColumn = 1;
+
             for (int i = 0; i < text.Length; i++)
             {
                 char currentChar = text[i];
@@ -70,15 +75,36 @@ namespace Brackets
                     //    correspondingOpeningBracket = '{';
 
                     if (brackets.Count == 0)
+                    {
+                        errorColumn = currentColumn;
+                        errorRow = currentRow;
                         return false;
-
+                    }
                     if (brackets.Peek() == CorrespondingOpeningBracket(currentChar))
+                    {
                         brackets.Pop();
+                    }
                     else
+                    {
+                        errorColumn = currentColumn;
+                        errorRow = currentRow;
                         return false;
+                    }
+                }
+
+                if (currentChar == '\n')
+                {
+                    currentRow++;
+                    currentColumn = 1;
+                }
+                else
+                {
+                    currentColumn++;
                 }
             }
 
+            errorColumn = currentColumn;
+            errorRow = currentRow;
             return brackets.Count == 0;
         }
 
