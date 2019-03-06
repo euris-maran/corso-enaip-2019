@@ -55,6 +55,12 @@ namespace CSharp
             {
                 System.Diagnostics.Debug.WriteLine(item);
             }
+
+            //foreach (implicit type)
+            foreach (var item in stringhe)
+            {
+                System.Diagnostics.Debug.WriteLine(item);
+            }
         }
     }
 }

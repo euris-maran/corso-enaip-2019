@@ -39,23 +39,16 @@ namespace CSharp
             //i = ++i;
             //i += 1;
 
-            if (i > 1 && i < 10 && i != 7)
-            {
-
-            }
-            else if (i >= 2 || i == 5)
-            {
-
-            }
-            else
-            {
-
-            }
+         
 
             
 
             string str = "ciao";
             str = string.Concat(str, " Mario");
+
+            var str2 = "ciao";
+            var intero = 1;
+            //str2 = 13467; errore
 
             Console.WriteLine(str);
             
