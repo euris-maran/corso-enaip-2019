@@ -41,16 +41,7 @@ namespace SchoolClass
         {
             Console.WriteLine("Chi stai cercando?");
             string name = Console.ReadLine().Trim();
-
-            List<KeyValuePair<int, string>> studentsFound = new List<KeyValuePair<int, string>>();
-            foreach (var className in students)
-            {
-                foreach (var student in className.Value)
-                {
-                    if (student.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                        studentsFound.Add(new KeyValuePair<int, string>(className.Key, student));
-                }
-            }
+            List<KeyValuePair<int, string>> studentsFound = SearchStudents(name);
 
             if (studentsFound.Count == 0)
             {
@@ -63,6 +54,21 @@ namespace SchoolClass
                     Console.WriteLine($"Ho trovato { entry.Value } nella classe { entry.Key }a");
                 }
             }
+        }
+
+        private static List<KeyValuePair<int, string>> SearchStudents(string name)
+        {
+            List<KeyValuePair<int, string>> studentsFound = new List<KeyValuePair<int, string>>();
+            foreach (var className in students)
+            {
+                foreach (var student in className.Value)
+                {
+                    if (student.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                        studentsFound.Add(new KeyValuePair<int, string>(className.Key, student));
+                }
+            }
+
+            return studentsFound;
         }
 
         private static void PrintMenu()
