@@ -19,6 +19,9 @@ namespace SchoolClass
                 PrintMenu();
                 switch (Console.ReadKey(true).Key)
                 {
+                    case ConsoleKey.C:
+                        ClearScreen();
+                        break;
                     case ConsoleKey.I:
                         AskForStudents();
                         break;
@@ -28,6 +31,9 @@ namespace SchoolClass
                     case ConsoleKey.F:
                         FindStudent();
                         break;
+                    case ConsoleKey.R:
+                        DeleteStudent();
+                        break;
                     case ConsoleKey.Escape:
                         run = false;
                         break;
@@ -35,6 +41,54 @@ namespace SchoolClass
             }
 
             Console.ReadKey();
+        }
+
+        private static void ClearScreen()
+        {
+            Console.Clear();
+        }
+
+        private static void DeleteStudent()
+        {
+            bool result = false;
+
+            Console.WriteLine("Chi stai cercando?");
+            string name = Console.ReadLine().Trim();
+            var studentsFound = SearchStudents(name);
+
+            if (studentsFound.Count == 0)
+            {
+                Console.WriteLine($"Non ho trovato { name } in nessuna classe");
+            }
+            else if (studentsFound.Count == 1)
+            {
+                result = RemoveStudent(studentsFound[0].Key, name);
+            }
+            else
+            {
+                Console.WriteLine("Ho trovato degli omonimi in più classi, da quale classe vuoi rimuovere lo studente?");
+                foreach (var item in studentsFound)
+                {
+                    Console.WriteLine($"{ item.Value }, classe { item.Key }a");
+                }
+
+                int className = AskForClass();
+                //test se la classe è corretta rispetto ai risultati
+                result = RemoveStudent(className, name);
+            }
+
+            if (result)
+                Console.WriteLine($"{name} è stato eliminato dagli studenti");
+        }
+
+        private static bool RemoveStudent(int className, string name)
+        {
+            students[className].Remove(name);
+
+            if (students[className].Count == 0)
+                students.Remove(className);
+
+            return true;
         }
 
         private static void FindStudent()
@@ -78,8 +132,10 @@ namespace SchoolClass
             Console.WriteLine("  Inserimento studenti (I)");
             Console.WriteLine("  Visualizza lista classi (L)");
             Console.WriteLine("  Cerca uno studente (F)");
+            Console.WriteLine("  Rimuove uno studente (R)");
             Console.WriteLine();
             Console.WriteLine("  Escape per uscire");
+            Console.WriteLine("  C per pulire la console");
             Console.WriteLine();
         }
 
