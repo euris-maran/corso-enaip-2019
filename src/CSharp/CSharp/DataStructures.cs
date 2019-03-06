@@ -28,7 +28,7 @@ namespace CSharp
             stringhe.Add("uno");
             //new List<string>();
             string uno = stringhe[0];
-            
+
             List<int> interi = new List<int>();
             interi.Add(1);
             interi.Remove(1);
@@ -48,6 +48,15 @@ namespace CSharp
             stackInteri.Push(1);
             int first = stackInteri.Peek();
             first = stackInteri.Pop();
+        }
+
+        public void Dictionary()
+        {
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(1, "uno");
+            dictionary.Add(2, "due");
+
+            System.Diagnostics.Debug.WriteLine(dictionary[2]);
         }
     }
 }

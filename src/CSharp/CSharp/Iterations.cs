@@ -10,6 +10,7 @@ namespace CSharp
     {
         public void Iterate()
         {
+            //for con incremento
             int i = 0;
             for (i = 0; i < 20; i++)
             {
@@ -24,11 +25,13 @@ namespace CSharp
                 System.Diagnostics.Debug.WriteLine(i);
             }
 
+            //for con decremento
             for (i = 3; i > 0; i--)
             {
                 System.Diagnostics.Debug.WriteLine(i);
             }
 
+            //while
             i = 0;
             while (i < 3)
             {
@@ -38,12 +41,20 @@ namespace CSharp
                 i++;
             }
 
+            //do while
             i = 0;
             do
             {
                 System.Diagnostics.Debug.WriteLine(i);
                 i++;
             } while (i < 3);
+
+            //foreach
+            List<string> stringhe = new List<string>() { "uno", "due", "tre" };
+            foreach (string item in stringhe)
+            {
+                System.Diagnostics.Debug.WriteLine(item);
+            }
         }
     }
 }
