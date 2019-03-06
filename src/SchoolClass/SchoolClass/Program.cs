@@ -8,16 +8,76 @@ namespace SchoolClass
 {
     class Program
     {
+        static SortedDictionary<int, List<string>> students = new SortedDictionary<int, List<string>>();
+
         static void Main(string[] args)
         {
-            SortedDictionary<int, List<string>> students = AskForStudents();
+            bool run = true;
 
-            PrintStudents(students);
+            while (run)
+            {
+                PrintMenu();
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.I:
+                        AskForStudents();
+                        break;
+                    case ConsoleKey.L:
+                        PrintStudents();
+                        break;
+                    case ConsoleKey.F:
+                        FindStudent();
+                        break;
+                    case ConsoleKey.Escape:
+                        run = false;
+                        break;
+                }
+            }
 
             Console.ReadKey();
         }
 
-        private static void PrintStudents(SortedDictionary<int, List<string>> students)
+        private static void FindStudent()
+        {
+            Console.WriteLine("Chi stai cercando?");
+            string name = Console.ReadLine().Trim();
+
+            List<KeyValuePair<int, string>> studentsFound = new List<KeyValuePair<int, string>>();
+            foreach (var className in students)
+            {
+                foreach (var student in className.Value)
+                {
+                    if (student.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                        studentsFound.Add(new KeyValuePair<int, string>(className.Key, student));
+                }
+            }
+
+            if (studentsFound.Count == 0)
+            {
+                Console.WriteLine($"Non ho trovato { name } in nessuna classe");
+            }
+            else
+            {
+                foreach (var entry in studentsFound)
+                {
+                    Console.WriteLine($"Ho trovato { entry.Value } nella classe { entry.Key }a");
+                }
+            }
+        }
+
+        private static void PrintMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Seleziona funzionalità:");
+            Console.WriteLine("  Inserimento studenti (I)");
+            Console.WriteLine("  Visualizza lista classi (L)");
+            Console.WriteLine("  Cerca uno studente (F)");
+            Console.WriteLine();
+            Console.WriteLine("  Escape per uscire");
+            Console.WriteLine();
+        }
+
+        private static void PrintStudents()
         {
             foreach (var item in students)
             {
@@ -29,19 +89,19 @@ namespace SchoolClass
             }
         }
 
-        static SortedDictionary<int, List<string>> AskForStudents()
+        static void AskForStudents()
         {
-            SortedDictionary<int, List<string>> students = new SortedDictionary<int, List<string>>();
-
+            string name;
             do
             {
-                string name = AskForName();
-                int grade = AskForClass();
-                AddStudent(students, name, grade);
+                name = AskForName();
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    int grade = AskForClass();
+                    AddStudent(students, name, grade);
+                }
             }
-            while (NeedNext());
-
-            return students;
+            while (!string.IsNullOrWhiteSpace(name));
         }
 
         private static void AddStudent(SortedDictionary<int, List<string>> students, string name, int grade)
@@ -52,18 +112,9 @@ namespace SchoolClass
             students[grade].Add(name);
         }
 
-        private static bool NeedNext()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Vuoi inserire un altro studente? (S/N)");
-            Console.WriteLine();
-
-            return Console.ReadKey(true).Key == ConsoleKey.S;
-        }
-
         static string AskForName()
         {
-            Console.Write("Inserisci il nome: ");
+            Console.Write("Inserisci il nome (enter per uscire): ");
             return Console.ReadLine();
         }
 
