@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharp.FirstNamespace;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace CSharp
 
         static void Main(string[] args)
         {
+            new Switch().Click();
             new ValueAndReference().Test();
             new Iterations().Iterate();
             new DataStructures().Array();

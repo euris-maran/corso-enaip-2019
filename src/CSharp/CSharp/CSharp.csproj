@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Conditionals.cs" />
     <Compile Include="DataStructures.cs" />
-    <Compile Include="FirstNamespace\Class1.cs" />
+    <Compile Include="FirstNamespace\Bulb.cs" />
     <Compile Include="Iterations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
