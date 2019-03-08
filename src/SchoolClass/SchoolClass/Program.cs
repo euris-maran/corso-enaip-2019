@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolClass.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace SchoolClass
 {
     class Program
     {
-        static SortedDictionary<int, List<string>> students = new SortedDictionary<int, List<string>>();
-
+        static School _school = new School();
+        
         static void Main(string[] args)
         {
             bool run = true;
@@ -50,52 +51,40 @@ namespace SchoolClass
 
         private static void DeleteStudent()
         {
-            bool result = false;
-
             Console.WriteLine("Chi stai cercando?");
             string name = Console.ReadLine().Trim();
-            var studentsFound = SearchStudents(name);
 
+            var studentsFound = _school.SearchStudents(name);
             if (studentsFound.Count == 0)
             {
                 Console.WriteLine($"Non ho trovato { name } in nessuna classe");
             }
             else if (studentsFound.Count == 1)
             {
-                result = RemoveStudent(studentsFound[0].Key, name);
+                _school.RemoveStudent(studentsFound[0].AttendedClassroom.Grade, studentsFound[0].Name);
+                Console.WriteLine($"{name} è stato eliminato dagli studenti");
             }
             else
             {
                 Console.WriteLine("Ho trovato degli omonimi in più classi, da quale classe vuoi rimuovere lo studente?");
-                foreach (var item in studentsFound)
+                foreach (var student in studentsFound)
                 {
-                    Console.WriteLine($"{ item.Value }, classe { item.Key }a");
+                    Console.WriteLine($"{ student.Name }, classe { student.AttendedClassroom.Grade }a");
                 }
 
                 int className = AskForClass();
-                //test se la classe è corretta rispetto ai risultati
-                result = RemoveStudent(className, name);
-            }
+                //TODO test se la classe è corretta rispetto ai risultati
+                _school.RemoveStudent(className, name);
 
-            if (result)
                 Console.WriteLine($"{name} è stato eliminato dagli studenti");
+            }
         }
-
-        private static bool RemoveStudent(int className, string name)
-        {
-            students[className].Remove(name);
-
-            if (students[className].Count == 0)
-                students.Remove(className);
-
-            return true;
-        }
-
+        
         private static void FindStudent()
         {
             Console.WriteLine("Chi stai cercando?");
             string name = Console.ReadLine().Trim();
-            List<KeyValuePair<int, string>> studentsFound = SearchStudents(name);
+            var studentsFound = _school.SearchStudents(name);
 
             if (studentsFound.Count == 0)
             {
@@ -105,26 +94,11 @@ namespace SchoolClass
             {
                 foreach (var entry in studentsFound)
                 {
-                    Console.WriteLine($"Ho trovato { entry.Value } nella classe { entry.Key }a");
+                    Console.WriteLine($"Ho trovato { entry.Name } nella classe { entry.AttendedClassroom.Grade }a");
                 }
             }
         }
-
-        private static List<KeyValuePair<int, string>> SearchStudents(string name)
-        {
-            List<KeyValuePair<int, string>> studentsFound = new List<KeyValuePair<int, string>>();
-            foreach (var className in students)
-            {
-                foreach (var student in className.Value)
-                {
-                    if (student.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                        studentsFound.Add(new KeyValuePair<int, string>(className.Key, student));
-                }
-            }
-
-            return studentsFound;
-        }
-
+        
         private static void PrintMenu()
         {
             Console.WriteLine();
@@ -141,13 +115,9 @@ namespace SchoolClass
 
         private static void PrintStudents()
         {
-            foreach (var item in students)
+            foreach (var student in _school.GetAllStudents())
             {
-                Console.WriteLine($"Studenti della classe { item.Key }a");
-                for (int i = 0; i < item.Value.Count; i++)
-                {
-                    Console.WriteLine($"\t{item.Value[i]}");
-                }
+                Console.WriteLine($"Studente { student.Name } appartenente alla classe { student.AttendedClassroom.Grade }a");
             }
         }
 
@@ -160,18 +130,10 @@ namespace SchoolClass
                 if (!string.IsNullOrWhiteSpace(name))
                 {
                     int grade = AskForClass();
-                    AddStudent(students, name, grade);
+                    _school.AddStudent(grade, new Student(name));
                 }
             }
             while (!string.IsNullOrWhiteSpace(name));
-        }
-
-        private static void AddStudent(SortedDictionary<int, List<string>> students, string name, int grade)
-        {
-            if (!students.ContainsKey(grade))
-                students[grade] = new List<string>();
-
-            students[grade].Add(name);
         }
 
         static string AskForName()
