@@ -10,7 +10,7 @@ namespace Semaphores
     {
         static void Main(string[] args)
         {
-            StreetController c = new StreetController(5, 1);
+            CrossroadController c = new CrossroadController(5, 1);
             Console.WriteLine(c.StateDescription);
 
             while (true)

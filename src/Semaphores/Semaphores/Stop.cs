@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Semaphores
 {
-    class Street
+    class Stop
     {
-        public Street(string name)
+        public Stop(string name)
         {
             Name = name;
         }
