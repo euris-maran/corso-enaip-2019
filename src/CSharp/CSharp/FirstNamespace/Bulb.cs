@@ -30,31 +30,112 @@ namespace CSharp.FirstNamespace
             //philipsHue400w._turnedOn = false;
             //philipsHue400w.TurnedOn = false;
 
-            Bulb ikeaBulb = new Bulb(15, 600);
+            object ikeaBulb = new Bulb(15, 600);
+            object o = new object();
+            Bulb ib = (Bulb)ikeaBulb;
+            //philipsHue400w = null;
+            Device b = (Device)ikeaBulb;
+            b.TurnOn();
 
-            philipsHue400w = null;
-            Bulb b = philipsHue400w;
-            b.TurnOff();
+            //Bulb ob = (Bulb)o;
+            //ob.DisplayDescription();
+
+            string d1 = b.DisplayDescription();
+            
+            Device f = new Fan(300);
+            f.TurnOn();
+            f.TurnOff();
+            Bulb bf = (Bulb)f;
+
+            string d2 = f.DisplayDescription();
+
         }
     }
 
-    class Bulb
+    abstract class Device
     {
-        int _consumption;
-        //int _lumen;
-
-        bool _turnedOn;
-
-        public Bulb(int consumption, int lumen)
+        public Device(int consumption)
         {
-            _consumption = consumption;
-            //_lumen = lumen;
-            Lumen = lumen;
-
-            _turnedOn = false;
+            TurnedOn = false;
+            Consumption = consumption;
         }
 
+        public bool TurnedOn { get; private set; }
+
+        public int Consumption { get; private set; }
+
+        public void TurnOn()
+        {
+            TurnedOn = true;
+        }
+
+        public void TurnOff()
+        {
+            TurnedOn = false;
+        }
+
+        //public virtual string DisplayDescription()
+        //{
+        //    return this.GetType().ToString();
+        //}
+
+        public abstract string DisplayDescription();
+    }
+
+    class Fan : Device
+    {
+        public Fan(int consumption) : base(consumption)
+        {
+            //Consumption = consumption;
+
+            //TurnedOn = false;
+        }
+
+        public override string DisplayDescription()
+        {
+            return $"Sono una ventola e sto consumando { Consumption }";
+        }
+
+        //public override string DisplayDescription()
+        //{
+
+        //    return $"Sono una ventola ({ base.DisplayDescription() }) e sto consumando { Consumption }";
+        //}
+    }
+
+    class Bulb : Device
+    {
+        //int _consumption;
+        //readonly int _lumen;
+
+        //bool _turnedOn;
+
+        public override string DisplayDescription()
+        {
+            return $"Sono una lampadina e sto consumando { Consumption } perché sono al { Intensity }% di intensità";
+        }
+
+        public Bulb(int consumption, int lumen) : base(consumption)
+        {
+            //_lumen = lumen;
+            //_consumption = consumption;
+            //_lumen = lumen;
+            //Consumption = consumption;
+            Lumen = lumen;
+
+            //TurnedOn = false;
+            //_turnedOn = false;
+        }
+
+        public int Intensity { get; private set; }
+
         public int Lumen { get; }
+
+        public void SetIntensity(int intensity)
+        {
+            Intensity = intensity;
+        }
+
         //public int Lumen
         //{
         //    get
@@ -67,25 +148,25 @@ namespace CSharp.FirstNamespace
         //    }
         //}
 
-        public bool TurnedOn
-        {
-            get
-            {
-                return _turnedOn;
-            }
-        }
+        //public bool TurnedOn
+        //{
+        //    get
+        //    {
+        //        return _turnedOn;
+        //    }
+        //}
 
-        public int Consumption
-        {
-            get
-            {
-                return _consumption;
-            }
-            set
-            {
-                _consumption = value;
-            }
-        }
+        //public int Consumption
+        //{
+        //    get
+        //    {
+        //        return _consumption;
+        //    }
+        //    set
+        //    {
+        //        _consumption = value;
+        //    }
+        //}
 
         //int GetComsumption()
         //{
@@ -97,14 +178,14 @@ namespace CSharp.FirstNamespace
         //    _consumption = value;
         //}
 
-        public void TurnOn()
-        {
-            _turnedOn = true;
-        }
+        //public void TurnOn()
+        //{
+        //    _turnedOn = true;
+        //}
 
-        public void TurnOff()
-        {
-            _turnedOn = false;
-        }
+        //public void TurnOff()
+        //{
+        //    _turnedOn = false;
+        //}
     }
 }
