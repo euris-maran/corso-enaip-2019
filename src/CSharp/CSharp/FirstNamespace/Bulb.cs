@@ -37,8 +37,17 @@ namespace CSharp.FirstNamespace
             Device b = (Device)ikeaBulb;
             b.TurnOn();
 
-            //Bulb ob = (Bulb)o;
-            //ob.DisplayDescription();
+            if (o is Bulb)
+            {
+                //non entra
+            }
+
+            Bulb ob = o as Bulb;
+            if(ob != null)
+                ob.DisplayDescription();
+            ob?.DisplayDescription();
+
+            Bulb alternateNull = ob ?? ib;
 
             string d1 = b.DisplayDescription();
             

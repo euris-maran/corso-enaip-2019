@@ -35,6 +35,10 @@ namespace CSharp
             bool b;
             byte bt;
 
+            //var nullInt = new Nullable<int>();
+            int? nullInt = 1;
+            int copyNullInt = nullInt.Value;
+
             i = 1;
             i = i + 1;
             //i = i++;
