@@ -28,13 +28,13 @@ namespace FirstConsole
                 int[] arr = new int[3];
                 int n = arr[5];
             }
-            //catch (IndexOutOfRangeException)
-            //{
-            //}
-            //catch (NullReferenceException nre)
-            //{
-            //    throw new Exception("asdasdasd", nre);
-            //}
+            catch (IndexOutOfRangeException)
+            {
+            }
+            catch (NullReferenceException nre)
+            {
+                throw new Exception("asdasdasd", nre);
+            }
             finally
             {
 
