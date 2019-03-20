@@ -12,7 +12,7 @@ namespace SmartHome
 
         public void OnSwitchedOnChanged(IActuator actuator, bool isSwitchedOn)
         {
-            foreach (var device in _devices)
+            foreach (IDevice device in _devices)
             {
                 if (device.PairingCode == actuator.PairingCode)
                 {
@@ -25,7 +25,7 @@ namespace SmartHome
         public void RegisterActuators(params IActuator[] actuators)
         {
             //TODO check device for pairing code
-            foreach (var actuator in actuators)
+            foreach (IActuator actuator in actuators)
             {
                 actuator.AddActionListener(this);
                 if (actuator is IFeedbackListener)
@@ -47,7 +47,7 @@ namespace SmartHome
 
         private void NotifyFeedbackListeners(IDevice device, bool status)
         {
-            foreach (var listener in _listeners)
+            foreach (IFeedbackListener listener in _listeners)
             {
                 listener.TakeFeedback(device, status);
             }
