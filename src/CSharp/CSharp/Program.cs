@@ -1,4 +1,5 @@
 ﻿using CSharp.FirstNamespace;
+using FirstConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace CSharp
 
         static void Main(string[] args)
         {
+            new ExceptionsAndLog().Run();
             new Switch().Click();
             new ValueAndReference().Test();
             new Iterations().Iterate();
