@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleLogger.Targets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,9 @@ namespace SimpleLogger
         void LogInfo(string message);
 
         void LogError(string message, Exception e);
+
+        void AddTarget(ILogTarget target);
+
+        void RemoveTarget(ILogTarget target);
     }
 }
