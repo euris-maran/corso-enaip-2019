@@ -1,10 +1,11 @@
-﻿using SimpleLogger.Targets;
+﻿using SimpleLogger;
+using SimpleLogger.Targets;
 
 namespace LoggerTester
 {
     internal class MockTarget : ILogTarget
     {
-        public void WriteLog(string message)
+        public void WriteLog(LogEntry entry)
         {
             throw new System.NotImplementedException();
         }

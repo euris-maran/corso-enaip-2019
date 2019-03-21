@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimpleLogger.Targets
 {
-    public interface ILogTarget
+    public class DbTarget : ILogTarget
     {
-        void WriteLog(LogEntry entry);
+        public void WriteLog(LogEntry entry)
+        {
+            
+        }
     }
 }

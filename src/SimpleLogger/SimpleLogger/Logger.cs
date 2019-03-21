@@ -24,19 +24,28 @@ namespace SimpleLogger
 
         public void LogError(string message, Exception e)
         {
-            Log($"ERROR - {DateTime.Now.ToString()} - {message} ({e.Message})");
+            Log(new LogEntry
+            {
+                Level = LogEntry.LogLevel.Error,
+                Message = message,
+                Error = e
+            });
         }
 
         public void LogInfo(string message)
         {
-            Log($"INFO - {DateTime.Now.ToString()} - {message}");
+            Log(new LogEntry
+            {
+                Level = LogEntry.LogLevel.Info,
+                Message = message
+            });
         }
 
-        private void Log(string message)
+        private void Log(LogEntry entry)
         {
             foreach (ILogTarget target in _targets)
             {
-                target.WriteLog(message);
+                target.WriteLog(entry);
             }
         }
     }
