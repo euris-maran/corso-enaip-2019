@@ -45,6 +45,7 @@
     <Compile Include="Beverages\Beverage.cs" />
     <Compile Include="Beverages\Espresso.cs" />
     <Compile Include="Condiments\Condiment.cs" />
+    <Compile Include="Condiments\Grappa.cs" />
     <Compile Include="Condiments\Milk.cs" />
     <Compile Include="Condiments\Moka.cs" />
     <Compile Include="Program.cs" />

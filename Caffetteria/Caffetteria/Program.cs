@@ -14,10 +14,14 @@ namespace Caffetteria
         {
             Beverage c = new Espresso();
             c = new Milk(c);
-            c = new Moka(c);
-
+            c = new Moka(c);            
             Console.WriteLine(c.Description);
             Console.WriteLine(c.Cost);
+
+            Beverage cc = new Espresso();
+            cc = new Grappa(cc);
+            Console.WriteLine(cc.Description);
+            Console.WriteLine(cc.Cost);
 
             Console.ReadKey(true);
         }
