@@ -14,7 +14,8 @@ namespace LoggerTester
         {
             ILogger logger = new Logger();
 
-            logger.AddTarget(new ConsoleTarget());
+            logger.AddTarget(new TraceTarget());
+            logger.AddTarget(new ColoredConsoleTarget());
 
             logger.LogInfo("Messaggio informativo");
             logger.LogError("Errore", new Exception("Error"));

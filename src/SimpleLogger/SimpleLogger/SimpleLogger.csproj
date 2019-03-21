@@ -44,9 +44,11 @@
     <Compile Include="LogEntry.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Targets\ColoredConsoleTarget.cs" />
     <Compile Include="Targets\ConsoleTarget.cs" />
     <Compile Include="Targets\DbTarget.cs" />
     <Compile Include="Targets\ILogTarget.cs" />
+    <Compile Include="Targets\TraceTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
