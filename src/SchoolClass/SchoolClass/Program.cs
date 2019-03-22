@@ -79,12 +79,36 @@ namespace SchoolClass
                 Console.WriteLine($"{name} è stato eliminato dagli studenti");
             }
         }
-        
+
+        class StudentForNameFilter : IFilter
+        {
+            readonly string _name;
+            public StudentForNameFilter(string name)
+            {
+                _name = name;
+            }
+
+            public bool Filter(Student s)
+            {
+                return s.Name.Equals(_name, StringComparison.InvariantCultureIgnoreCase);
+            }
+        }
+
+        static string nameFilter;
+
+        private static bool FilterByName(Student student)
+        {
+            return student.Name.Equals(nameFilter, StringComparison.InvariantCultureIgnoreCase);
+        }
+
         private static void FindStudent()
         {
             Console.WriteLine("Chi stai cercando?");
             string name = Console.ReadLine().Trim();
-            var studentsFound = _school.SearchStudents(name);
+            nameFilter = name;
+            //var studentsFound = _school.Classes[0].SearchStudents(new StudentForNameFilter(name));
+            
+            var studentsFound = _school.Classes[0].SearchStudents(FilterByName);
 
             if (studentsFound.Count == 0)
             {

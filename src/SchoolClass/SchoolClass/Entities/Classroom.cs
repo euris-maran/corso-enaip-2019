@@ -51,5 +51,36 @@ namespace SchoolClass.Entities
 
             return results;
         }
+
+        public List<Student> SearchStudents(IFilter filter)
+        {
+            List<Student> results = new List<Student>();
+            foreach (var student in _students)
+            {
+                if (filter.Filter(student))
+                    results.Add(student);
+            }
+
+            return results;
+        }
+
+        public List<Student> SearchStudents(FilterDelegate filter)
+        {
+            List<Student> results = new List<Student>();
+            foreach (var student in _students)
+            {
+                if (filter(student))
+                    results.Add(student);
+            }
+
+            return results;
+        }
+    }
+
+    public delegate bool FilterDelegate(Student s);
+
+    public interface IFilter
+    {
+        bool Filter(Student s);
     }
 }

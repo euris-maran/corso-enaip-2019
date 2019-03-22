@@ -14,6 +14,7 @@ namespace SchoolClass.Entities
         }
 
         public string Name { get; }
+        public string Surname { get; set; }
 
         public Classroom AttendedClassroom { get; private set; }
 

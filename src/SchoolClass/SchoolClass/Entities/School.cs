@@ -10,6 +10,8 @@ namespace SchoolClass.Entities
     {
         List<Classroom> _classes = new List<Classroom>();
 
+        public List<Classroom> Classes { get { return _classes; } }
+
         public void AddClass(Classroom c)
         {
             _classes.Add(c);
