@@ -10,7 +10,7 @@ namespace SchoolClass
     class Program
     {
         static School _school = new School();
-        
+
         static void Main(string[] args)
         {
             bool run = true;
@@ -94,21 +94,66 @@ namespace SchoolClass
             }
         }
 
-        static string nameFilter;
-
-        private static bool FilterByName(Student student)
-        {
-            return student.Name.Equals(nameFilter, StringComparison.InvariantCultureIgnoreCase);
-        }
+        //Da C# 7 può essere sostituita dalla local function sotto
+        //static string nameFilter;
+        //private static bool FilterByName(Student student)
+        //{
+        //    return student.Name.Equals(nameFilter, StringComparison.InvariantCultureIgnoreCase);
+        //}
 
         private static void FindStudent()
         {
             Console.WriteLine("Chi stai cercando?");
             string name = Console.ReadLine().Trim();
-            nameFilter = name;
-            //var studentsFound = _school.Classes[0].SearchStudents(new StudentForNameFilter(name));
-            
-            var studentsFound = _school.Classes[0].SearchStudents(FilterByName);
+
+            /**
+             * Versione con interfaccia e classe concreta per il filtro (StudentForNameFilter sopra)  
+             */
+            //IFilter f = new StudentForNameFilter(name);
+            //var studentsFound = _school.Classes[0].SearchStudents(f);
+            //studentsFound = _school.Classes[0].SearchStudents(new StudentForNameFilter(name));
+
+            /**
+             * Versione con delegate e local function
+             */
+            //bool filterByName(Student student)
+            //{
+            //    return student.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase);
+            //};
+            //FilterDelegate filter = filterByName;
+
+            /**
+             * Versione con delegate e metodo anonimo
+             */
+            //FilterDelegate filter = delegate (Student s)
+            //{
+            //    return s.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase);
+            //};
+            //studentsFound = _school.Classes[0].SearchStudents(filter);
+
+            /**
+             * Versione con delegate in linea
+             */
+            //var studentsFound = _school.Classes[0].SearchStudents(delegate (Student s)
+            //{
+            //    return s.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase);
+            //});
+
+            /**
+             * Versione con lambda expression su variabile
+             */
+            //FilterDelegate filter = (s) => { return s.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase); };
+            //var studentsFound = _school.Classes[0].SearchStudents(filter);
+
+            /**
+             * Versione con lambda expression inline
+             */
+            //var studentsFound = _school.Classes[0].SearchStudents((s) => { return s.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase); });
+
+            /**
+             * Versione con lambda inline ridotta
+             */
+            var studentsFound = _school.Classes[0].SearchStudents(s => s.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
 
             if (studentsFound.Count == 0)
             {
@@ -122,7 +167,7 @@ namespace SchoolClass
                 }
             }
         }
-        
+
         private static void PrintMenu()
         {
             Console.WriteLine();
