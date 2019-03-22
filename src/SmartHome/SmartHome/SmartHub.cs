@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SmartHome.Actuators;
 using SmartHome.Devices;
+using System.Linq;
 
 namespace SmartHome
 {
@@ -12,14 +13,22 @@ namespace SmartHome
 
         public void OnSwitchedOnChanged(IActuator actuator, bool isSwitchedOn)
         {
-            foreach (IDevice device in _devices)
+            bool check = _devices.Any(d => d.PairingCode == actuator.PairingCode);
+
+            foreach (IDevice device in _devices.Where(d => d.PairingCode == actuator.PairingCode))
             {
-                if (device.PairingCode == actuator.PairingCode)
-                {
-                    device.ChangeStatus(isSwitchedOn);
-                    NotifyFeedbackListeners(device, isSwitchedOn);
-                }
+                device.ChangeStatus(isSwitchedOn);
+                NotifyFeedbackListeners(device, isSwitchedOn);
             }
+
+            //foreach (IDevice device in _devices)
+            //{
+            //    if (device.PairingCode == actuator.PairingCode)
+            //    {
+            //        device.ChangeStatus(isSwitchedOn);
+            //        NotifyFeedbackListeners(device, isSwitchedOn);
+            //    }
+            //}
         }
 
         public void RegisterActuators(params IActuator[] actuators)
@@ -47,10 +56,11 @@ namespace SmartHome
 
         private void NotifyFeedbackListeners(IDevice device, bool status)
         {
-            foreach (IFeedbackListener listener in _listeners)
-            {
-                listener.TakeFeedback(device, status);
-            }
+            _listeners.ForEach(l => l.TakeFeedback(device, status));
+            //foreach (IFeedbackListener listener in _listeners)
+            //{
+            //    listener.TakeFeedback(device, status);
+            //}
         }
     }
 }
