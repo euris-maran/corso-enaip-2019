@@ -13,6 +13,7 @@ namespace CSharp
 
         static void Main(string[] args)
         {
+            new ExtensionMethods().Run();
             new ExceptionsAndLog().Run();
             new Switch().Click();
             new ValueAndReference().Test();

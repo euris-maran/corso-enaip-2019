@@ -45,6 +45,7 @@
     <Compile Include="Conditionals.cs" />
     <Compile Include="DataStructures.cs" />
     <Compile Include="ExceptionsAndLog.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FirstNamespace\Bulb.cs" />
     <Compile Include="Iterations.cs" />
     <Compile Include="Program.cs" />
