@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Anagrams.Repositories
 {
-    class FileDictionaryLoader
+    class FileDictionaryLoader : IDictionaryLoader
     {
         readonly string _dictionaryPath = string.Concat(
             Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),

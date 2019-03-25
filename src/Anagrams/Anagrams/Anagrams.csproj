@@ -42,10 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Games\IGameplay.cs" />
+    <Compile Include="Games\IUIHandler.cs" />
+    <Compile Include="Games\Training.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FileDictionaryLoader.cs" />
+    <Compile Include="Repositories\IDictionaryLoader.cs" />
     <Compile Include="Repositories\IWordsRepository.cs" />
+    <Compile Include="Repositories\WordsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
