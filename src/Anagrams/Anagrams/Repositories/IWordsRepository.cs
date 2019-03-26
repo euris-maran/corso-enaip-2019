@@ -26,7 +26,8 @@ namespace Anagrams.Repositories
         /// <summary>
         /// Restituisce dal dizionario una parola casuale che abbia anagrammi
         /// </summary>
-        /// <returns></returns>
-        string GetRandomWord();
+        /// <param name="minimumAnagrams">Numero minimo di anagrammi che deve avere la parola casuale</param>
+        /// <returns>Una parola del dizionario</returns>
+        string GetRandomWord(int minimumAnagrams = 1);
     }
 }

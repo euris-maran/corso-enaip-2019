@@ -57,10 +57,10 @@ namespace Anagrams
         {
 
             IWordsRepository repo = new WordsRepository(new FileDictionaryLoader());
-
             List<IGameplay> games = new List<IGameplay>
             {
-                new Training(repo)
+                new Training(repo),
+                new Match(repo)
             };
 
             IGameplay game = ChooseGame(games);

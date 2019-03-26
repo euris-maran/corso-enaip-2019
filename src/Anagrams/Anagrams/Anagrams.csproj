@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Games\IGameplay.cs" />
     <Compile Include="Games\IUIHandler.cs" />
+    <Compile Include="Games\Match.cs" />
     <Compile Include="Games\Training.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
